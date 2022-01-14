@@ -1,5 +1,7 @@
 <template>
 <div class="wrapper">
+  <Score :score="data.score" />
+  <div class="comment-section">
   <button class="reply">
     <img src="@/assets/icon-reply.svg" alt="" srcset="">
     <span>Reply</span>
@@ -9,24 +11,29 @@
     <img src="@/assets/avatars/image-amyrobson.png" alt="profile-image">
     <p>{{data.user.username}}</p>
     <p>{{data.createdAt}}</p>
-
   </div>
 
   <p>{{data.content}}</p>
+  </div>
 
 </div>
 </template>
 
 <script>
+import Score from '@/components/Score.vue';
+
 export default {
   name: 'Comment',
-  props: {
-    data: Object
+  components: {
+    Score,
   },
-  created(){
-    console.log(this.data)
-  }
-}
+  props: {
+    data: Object,
+  },
+  created() {
+    console.log(this.data);
+  },
+};
 </script>
 
 <style scoped>
@@ -41,6 +48,10 @@ img {
   padding: 10px;
   position: relative;
 }
+.comment-section{
+  margin-left: 60px;
+}
+
 .profile{
   display: flex;
 }
@@ -58,7 +69,9 @@ img {
   padding-right: 20px;
 }
 .reply span {
-margin-left: 10px;
+  margin-left: 7px;
+  color: hsl(238, 40%, 52%);
+  font-weight: bold;
 }
 .reply img{
   width: 15px;
