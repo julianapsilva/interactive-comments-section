@@ -1,15 +1,33 @@
 <template>
-  <HelloWorld/>
+<div v-for="comment in comments" :key="comment.id">
+  <Comment :data="comment"/>
+</div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import api from '@/services/api'
+import Comment from './components/Comment.vue'
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Comment
+  },
+  data (){
+    return {
+      comments: []
+
+    }
+  },
+  methods:{
+    async getAllComments(){
+      const {data} = await api.get('/comments')
+      this.comments = data
+    }
+  },
+  created (){
+    this.getAllComments()
   }
+
 }
 </script>
 
@@ -22,4 +40,12 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+
+body{
+    background-color: #F5F6FA;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 </style>
