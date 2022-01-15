@@ -8,21 +8,24 @@
   </div>
   </div>
 </div>
+<NewComment :user="currentUser"/>
 </template>
 
 <script>
 import api from '@/services/api';
-import Comment from './components/Comment.vue';
+import Comment from '@/components/Comment.vue';
+import NewComment from "@/components/NewComment.vue"
 
 export default {
   name: 'App',
   components: {
     Comment,
+    NewComment
   },
   data() {
     return {
       comments: [],
-
+      currentUser: {}
     };
   },
   methods: {
@@ -30,9 +33,14 @@ export default {
       const { data } = await api.get('/comments');
       this.comments = data;
     },
+    async getUser(){
+      const {data} = await api.get('/currentUser');
+      this.currentUser = data;
+    }
   },
   created() {
     this.getAllComments();
+    this.getUser();
   },
 
 };

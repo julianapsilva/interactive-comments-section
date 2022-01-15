@@ -8,7 +8,7 @@
   </button>
   <div class="profile">
     <!-- <img :src="data.user.image.png" alt="profile-image"> -->
-    <img src="@/assets/avatars/image-amyrobson.png" alt="profile-image">
+    <img src="@/assets/avatars/image-amyrobson.png" class="icon-person" alt="profile-image">
     <p>{{data.user.username}}</p>
     <p>{{data.createdAt}}</p>
   </div>
@@ -37,8 +37,9 @@ export default {
 </script>
 
 <style scoped>
-img {
+.icon-person {
   width: 30px;
+  height: 30px;
 }
 .wrapper{
   background-color: hsl(228, 33%, 97%);
