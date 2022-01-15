@@ -1,8 +1,9 @@
 <template>
 <div class="add-comment">
     <img src="@/assets/avatars/image-juliusomo.png" alt="my-photo">
-    <textarea name="" id="" cols="100" rows="4" placeholder="Add a comment..."></textarea>
-    <button>Send</button>
+    <textarea name="" id="" cols="100" rows="4"
+     placeholder="Add a comment..." v-model="text"></textarea>
+    <button @click="sendComment">{{button}}</button>
 </div>
 </template>
 
@@ -10,13 +11,25 @@
 export default {
   name: 'NewComment',
   props: {
-      user: Object
+      user: Object,
+      button: {
+        type: String,
+        default: "Send"
+      }
   },
   data () {
-    return {}
+    return {
+      text: ''
+    }
   },
   components: {},
-  methods: {},
+  methods: {
+    sendComment(){
+      this.$emit('newComment',
+       {score: 0, createdAt: 'today', 
+       content: this.text, user: this.user})
+    }
+  },
   created () {}
 }
 </script>
@@ -24,7 +37,7 @@ export default {
 <style scoped>
 .add-comment {
   background-color: hsl(228, 33%, 97%);
-  max-width: 750px;
+  max-width: 730px;
   margin-bottom: 60px;
   box-shadow: 3px 4px 10px 0px rgba(0,0,0,0.1);
   display: flex;

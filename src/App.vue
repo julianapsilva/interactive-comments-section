@@ -1,10 +1,10 @@
 <template>
 <div v-for="comment in comments" :key="comment.id">
-  <Comment :data="comment"/>
+  <Comment :data="comment" :user="currentUser"/>
   <div v-if="comment.replies" class="replies">
         <div class = "vertical"></div>
     <div v-for="reply in comment.replies" :key="reply.id" class="reply">
-  <Comment :data="reply"/>
+  <Comment :data="reply" :user="currentUser"/>
   </div>
   </div>
 </div>
@@ -36,6 +36,7 @@ export default {
     async getUser(){
       const {data} = await api.get('/currentUser');
       this.currentUser = data;
+      console.log('curee', this.currentUser)
     }
   },
   created() {
@@ -61,6 +62,10 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+button:hover{
+  cursor: pointer;
 }
 
 .replies{
