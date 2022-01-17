@@ -1,20 +1,21 @@
 <template>
-<div v-for="comment in comments" :key="comment.id">
-  <Comment :data="comment" :user="currentUser"/>
-  <div v-if="comment.replies" class="replies">
-        <div class = "vertical"></div>
-    <div v-for="reply in comment.replies" :key="reply.id" class="reply">
-  <Comment :data="reply" :user="currentUser"/>
+  <div v-for="comment in comments" 
+    :key="comment.id" class="comments-wrapper">
+    <Comment :data="comment" :user="currentUser" />
+    <div v-if="comment.replies" class="replies">
+      <div class="vertical"></div>
+      <div v-for="reply in comment.replies" :key="reply.id" class="reply">
+        <Comment :data="reply" :user="currentUser" />
+      </div>
+    </div>
   </div>
-  </div>
-</div>
-<NewComment :user="currentUser"/>
+  <NewComment :user="currentUser" />
 </template>
 
 <script>
-import api from '@/services/api';
-import Comment from '@/components/Comment.vue';
-import NewComment from "@/components/NewComment.vue"
+import api from '@/services/api'
+import Comment from '@/components/Comment.vue'
+import NewComment from '@/components/NewComment.vue'
 
 export default {
   name: 'App',
@@ -22,29 +23,28 @@ export default {
     Comment,
     NewComment
   },
-  data() {
+  data () {
     return {
       comments: [],
       currentUser: {}
-    };
+    }
   },
   methods: {
-    async getAllComments() {
-      const { data } = await api.get('/comments');
-      this.comments = data;
+    async getAllComments () {
+      const { data } = await api.get('/comments')
+      this.comments = data
     },
-    async getUser(){
-      const {data} = await api.get('/currentUser');
-      this.currentUser = data;
+    async getUser () {
+      const { data } = await api.get('/currentUser')
+      this.currentUser = data
       console.log('curee', this.currentUser)
     }
   },
-  created() {
-    this.getAllComments();
-    this.getUser();
-  },
-
-};
+  created () {
+    this.getAllComments()
+    this.getUser()
+  }
+}
 </script>
 
 <style>
@@ -57,19 +57,23 @@ export default {
   margin-top: 60px;
 }
 
-body{
-    background-color: #F5F6FA;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+body {
+  background-color: #f5f6fa;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-button:hover{
+button:hover {
   cursor: pointer;
 }
 
-.replies{
-position: relative;
+.comments-wrapper{
+  max-width: 750px;
+}
+
+.replies {
+  position: relative;
 }
 .vertical {
   border-left: 0.1px solid hsl(211, 10%, 85%);
@@ -79,7 +83,7 @@ position: relative;
   margin-left: 30px;
 }
 
-.reply{
+.reply {
   margin-left: 60px;
 }
 </style>
